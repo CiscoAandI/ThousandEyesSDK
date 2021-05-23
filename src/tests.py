@@ -1,6 +1,6 @@
-from .test import Test
-from typing import Optional, Iterator
 from .list_like import ListLike
+from .test import Test
+
 
 class Tests(ListLike):
     """

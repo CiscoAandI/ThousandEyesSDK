@@ -1,0 +1,3 @@
+pytest==6.2.4
+pytest-blockage==0.2.2
+pytest-cov==2.12.0

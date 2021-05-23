@@ -1,7 +1,8 @@
 # https://developer.thousandeyes.com/v6/agents/#/agents
 
 from .agent import Agent
-from .like_like import ListLike
+from .list_like import ListLike
+
 
 class Agents(ListLike):
     """

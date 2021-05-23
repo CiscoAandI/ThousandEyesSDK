@@ -8,6 +8,7 @@ class EnumBase(Enum):
             if member.value == name:
                 return member
 
+
 class AlertType(EnumBase):
     HTTP_SERVER = 'HTTP Server'
     END_TO_END_SERVER = 'End-to-End (Server)'
@@ -30,10 +31,12 @@ class AlertRuleDirection(EnumBase):
     FROM_TARGET = 'FROM_TARGET'
     BIDIRECTIONAL = 'BIDIRECTIONAL'
 
+
 class RoundsViolatingMode(EnumBase):
     ANY = 'ANY'
     EXACT = 'EXACT'
-    
+
+
 class AlertNotificationIntegrationType(EnumBase):
     PAGER_DUTY = 'PAGER_DUTY'
     WEBHOOK = 'WEBHOOK'
