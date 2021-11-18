@@ -13,11 +13,16 @@ class ListLike(API):
 
     def list(self):
         for item in self._data if self._data else self._api._list(self.ROUTE, key=self.KEY):
-            yield self.SINGULAR_CLASS(self._api, item)
+            yield self.SINGULAR_CLASS(self._api, item, self.ROUTE)
 
     def get(self, item_id: int):
         if not self._data:
-            return self.SINGULAR_CLASS(self._api, self._api._request(f'{self.ROUTE}/{item_id}')[self.KEY][0])
+            url = f'{self.ROUTE}/{item_id}'
+            return self.SINGULAR_CLASS(
+                self._api,
+                self._api._request(url)[self.KEY][0],
+                url
+            )
         else:
             for item in self.list():
                 if item.id == item_id:

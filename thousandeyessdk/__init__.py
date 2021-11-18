@@ -1,3 +1,4 @@
+from json.decoder import JSONDecodeError
 import requests
 import werkzeug
 
@@ -69,7 +70,7 @@ class API:
             )
         self._aid = value
 
-    def _request(self, url: str, method: str = "GET", json=None) -> dict:
+    def _request(self, url: str, method: str = "GET", json=None, raw=False) -> dict:
         # window = self._generate_window(window_integer=window_integer, window_unit=window_unit)
 
         payload = {
@@ -91,12 +92,18 @@ class API:
             json=json
         )
 
+        if raw:
+            return response
+
         if response.ok:
             return response.json()
-        elif response.json().get('errorMessage'):
-            raise werkzeug.exceptions.default_exceptions[response.status_code](response.json().get('errorMessage'))
-        else:
-            response.raise_for_status()
+        try:
+            if response.json().get('errorMessage'):
+                raise werkzeug.exceptions.default_exceptions[response.status_code](response.json().get('errorMessage'))
+        except JSONDecodeError:
+            pass
+
+        response.raise_for_status()
 
     def _list(self, url, key=None):
         """
@@ -128,6 +135,11 @@ class ThousandEyes(API):
     def tests(self):
         from .tests import Tests
         return Tests(self)
+
+    @property
+    def endpoint_tests(self):
+        from .endpoint_tests import EndpointTests
+        return EndpointTests(self)
 
     @property
     def agents(self):

@@ -1,11 +1,9 @@
 # https://developer.thousandeyes.com/v6/tests/#/test_metadata
+from .core.base_entity import BaseEntity
 
 
-class Test:
+class Test(BaseEntity):
     """A single instance for a single test"""
-    def __init__(self, api, data):
-        self._api = api
-        self._data = data
 
     def _get_detail(self) -> None:
         self._data |= self._api._request(f'/tests/{self.id}')['test'][0]

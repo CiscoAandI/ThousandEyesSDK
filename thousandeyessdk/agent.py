@@ -1,11 +1,8 @@
 # https://developer.thousandeyes.com/v6/agents/#/agentid
+from .core.base_entity import BaseEntity
 
-
-class Agent:
+class Agent(BaseEntity):
     """A single instance for a single agent"""
-    def __init__(self, api, data):
-        self._api = api
-        self._data = data
 
     def _get_detail(self) -> None:
         self._data |= self._api._request(f'/agents/{self.id}')['agents'][0]

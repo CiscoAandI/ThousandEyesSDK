@@ -1,12 +1,10 @@
 from .alert_rule import AlertRule
+from .core.base_entity import BaseEntity
 from .enum import AlertType
 
 
-class Alert:
+class Alert(BaseEntity):
     """A single instance for a single alert"""
-    def __init__(self, api, data):
-        self._api = api
-        self._data = data
 
     @property
     def id(self):

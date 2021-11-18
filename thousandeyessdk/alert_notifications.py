@@ -1,13 +1,10 @@
 from typing import Optional
 
 from .enum import AlertNotificationIntegrationType
+from .core.base_entity import BaseEntity
 
 
-class AlertNotificationEmail:
-    def __init__(self, api, data):
-        self._api = api
-        self._data = data
-
+class AlertNotificationEmail(BaseEntity):
     @property
     def message(self):
         return self._data.get('message')
@@ -20,11 +17,7 @@ class AlertNotificationEmail:
         return f'<AlertNotificationEmail recipient={self.recipient}>'
 
 
-class AlertNotificationIntegration:
-    def __init__(self, api, data):
-        self._api = api
-        self._data = data
-
+class AlertNotificationIntegration(BaseEntity):
     @property
     def id(self):
         return self._data.get('integrationId')
@@ -75,13 +68,10 @@ class AlertNotificationIntegration:
         return f'<AlertNotificationIntegration type={self.type.name} name={self.name}>'
 
 
-class AlertNotifications:
+class AlertNotifications(BaseEntity):
     """
     A class for handling alert notifications
     """
-    def __init__(self, api, data):
-        self._api = api
-        self._data = data
 
     @property
     def email(self) -> Optional[AlertNotificationEmail]:

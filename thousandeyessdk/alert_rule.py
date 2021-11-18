@@ -1,15 +1,13 @@
 # https://developer.thousandeyes.com/v6/alerts/#/integrations
 
 from .alert_notifications import AlertNotifications
+from .core.base_entity import BaseEntity
 from .enum import AlertRuleDirection, AlertType, RoundsViolatingMode
 from .tests import Tests
 
 
-class AlertRule:
+class AlertRule(BaseEntity):
     """A single instance for a single alert rule"""
-    def __init__(self, api, data):
-        self._api = api
-        self._data = data
 
     def _get_detail(self) -> None:
         self._data |= self._api._request(f'/alert-rules/{self.id}')['alertRules'][0]
