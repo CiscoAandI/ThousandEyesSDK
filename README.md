@@ -9,7 +9,7 @@ from thousandeyessdk import ThousandEyes
 client = ThousandEyes(username='<your_username>', auth_token='<your_auth_token>')
 
 # Get a single alert
-alert = client.alerts.get('<alert_id>')
+alert = client.alerts.get(12345678)
 
 # Print rule expression from all alerts
 for alert in client.alerts.list():
@@ -24,7 +24,7 @@ for endpoint_test in client.endpoint_tests.list():
     print(endpoint_test.interval)
 
 # Get the test for an alert
-alert = client.alerts.get('<alert_id>')
+alert = client.alerts.get(12345678)
 alert_test = alert.test
 
 # Get only active alerts
