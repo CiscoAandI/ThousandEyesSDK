@@ -1,6 +1,6 @@
 # Thousand Eyes SDK
 
-Note: This SDK is in alpha and is supported at best-effort. Please raise issues as you find them. Pull requests are more than welcome.
+Note: This SDK is beta and is supported at best-effort. Please raise issues as you find them. Pull requests are more than welcome.
 
 A Thousand Eyes Python SDK for the Thousand Eyes Monitoring Service API
 
