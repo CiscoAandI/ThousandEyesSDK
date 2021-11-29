@@ -1,5 +1,7 @@
 # Thousand Eyes SDK
 
+As adoption of Thousand Eyes increases, usage of the api for various things also increases. In some cases, the usage of that API is automated. This SDK facilitates how to work with the Thousand Eyes SDK in a pythonic way. This SDK abstracts the Thousand Eyes API into a python library to be used for writing python code that interacts with the Thousand Eyes API.
+
 Note: This SDK is beta and is supported at best-effort. Please raise issues as you find them. Pull requests are more than welcome.
 
 A Thousand Eyes Python SDK for the Thousand Eyes Monitoring Service API
