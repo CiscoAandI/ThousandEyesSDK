@@ -1,3 +1,5 @@
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/CiscoAandI/ThousandEyesSDK)
+
 # Thousand Eyes SDK
 
 As adoption of Thousand Eyes increases, usage of the api for various things also increases. In some cases, the usage of that API is automated. This SDK facilitates how to work with the Thousand Eyes SDK in a pythonic way. This SDK abstracts the Thousand Eyes API into a python library to be used for writing python code that interacts with the Thousand Eyes API.
