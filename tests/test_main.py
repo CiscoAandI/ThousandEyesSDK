@@ -3,7 +3,7 @@ from unittest import mock
 import pytest
 import requests
 
-from src import ThousandEyes
+from thousandeyessdk import ThousandEyes
 
 from . import AUTH_TOKEN, BEARER_TOKEN, URL, USERNAME
 

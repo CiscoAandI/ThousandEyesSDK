@@ -145,3 +145,8 @@ class ThousandEyes(API):
     def agents(self):
         from .agents import Agents
         return Agents(self)
+
+    @property
+    def endpoint_data(self):
+        from .endpoint_data import EndpointData
+        return EndpointData(self)
