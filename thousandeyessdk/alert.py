@@ -1,6 +1,7 @@
 from .alert_rule import AlertRule
 from .core.base_entity import BaseEntity
 from .enum import AlertType
+from .agent import Agent
 
 
 class Alert(BaseEntity):
@@ -17,6 +18,10 @@ class Alert(BaseEntity):
     @property
     def active(self):
         return self.activity_state == 1
+
+    @property
+    def rule_expression(self):
+        return self._data.get('ruleExpression')
 
     @property
     def inactive(self):
@@ -56,11 +61,13 @@ class Alert(BaseEntity):
 
     @property
     def agents(self):
-        pass
+        return [agent_data for agent_data in self._data.get('agents')]
+        # return self._data.get('agents')
 
+    # will probably need to add monitor class
     @property
     def monitors(self):
-        pass
+        return [monitor for monitor in self._data.get('monitors')]
 
     @property
     def api_links(self):

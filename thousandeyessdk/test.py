@@ -13,5 +13,14 @@ class Test(BaseEntity):
         """unique ID of the test"""
         return self._data.get('testId')
 
+    @property
+    def agent_list(self):
+        return self._data.get('agents')
+
+    # this should be done in a way that informs user if there is no domain field
+    @property
+    def domain(self):
+        return self._data.get('domain', None)
+
     def __repr__(self):
         return f'<Test id={self.id}>'

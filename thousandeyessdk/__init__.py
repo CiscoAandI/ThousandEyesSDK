@@ -19,7 +19,8 @@ class API:
         auth_token: str = None,
         url: str = None,
         response_format: str = "json",
-        aid: int = None
+        aid: int = None,
+        ver: str = None
     ):
         self._set_credentials(bearer_token, username, auth_token)
 
@@ -27,7 +28,7 @@ class API:
         # So we should stick to their nomenclature as much as possible, even if it's bad.
         self.aid = aid
         self.response_format = response_format
-        self.url = (url or ThousandEyes.DEFAULT_URL) + f'/{API.VERSION}'
+        self.url = (url or ThousandEyes.DEFAULT_URL) + f'/{ver if ver else API.VERSION}'
 
         # Verify connectivity
         self._request('/status')
@@ -146,6 +147,11 @@ class ThousandEyes(API):
         from .agents import Agents
         return Agents(self)
 
+    @property
+    def dashboards(self):
+        from .dashboards import Dashboards
+        return Dashboards(self)
+        
     @property
     def endpoint_data(self):
         from .endpoint_data import EndpointData
