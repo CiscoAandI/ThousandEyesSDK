@@ -7,13 +7,13 @@ class AgentTest(BaseEntity):
     @property
     def id(self) -> int:
         """unique test ID of the endpoint test"""
-        return self._data.get('testId')
+        return self._data.get("testId")
 
     @property
     def interval(self) -> int:
         """interval of the endpoint test"""
-        return self._data.get('interval')
-    
+        return self._data.get("interval")
+
     # Functions
 
     def get_network_detailed_path_trace(self, agent_id, interval):
@@ -28,7 +28,9 @@ class AgentTest(BaseEntity):
             Each route should start with a hop of 1
             Where a hop number is missing from response data, this is an indication that a star (*) response was returned in the path trace attempt for that hop.
         """
-        return self._api._request(f'/net/path-vis/{self.id}/{agent_id}/{interval}')['net']
+        return self._api._request(f"/net/path-vis/{self.id}/{agent_id}/{interval}")[
+            "net"
+        ]
 
     def __repr__(self):
-        return f'<AgentTest id={self.id}>'
+        return f"<AgentTest id={self.id}>"
