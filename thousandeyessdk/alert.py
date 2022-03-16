@@ -36,6 +36,10 @@ class Alert(BaseEntity):
         return AlertType.get(self._data.get('type'))
 
     @property
+    def string_type(self):
+        return self._data.get('type')
+
+    @property
     def rule(self) -> AlertRule:
         return self._api.alert_rules.get(self._data.get('ruleId'))
 
@@ -57,17 +61,17 @@ class Alert(BaseEntity):
 
     @property
     def permalink(self):
-        pass
+        return self._data.get('permalink')
 
     @property
     def agents(self):
-        return [agent_data for agent_data in self._data.get('agents')]
+        return [agent_data for agent_data in self._data.get('agents',[])]
         # return self._data.get('agents')
 
     # will probably need to add monitor class
     @property
     def monitors(self):
-        return [monitor for monitor in self._data.get('monitors')]
+        return [monitor for monitor in self._data.get('monitors', [])]
 
     @property
     def api_links(self):

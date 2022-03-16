@@ -17,6 +17,10 @@ class Test(BaseEntity):
     def agent_list(self):
         return self._data.get('agents')
 
+    @property
+    def interval(self):
+        return self._data.get('interval')
+
     # this should be done in a way that informs user if there is no domain field
     @property
     def domain(self):
