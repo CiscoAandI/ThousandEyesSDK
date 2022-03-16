@@ -6,7 +6,6 @@ import werkzeug
 class API:
     FORMATS = ["json", "xml"]
     DEFAULT_URL = "https://api.thousandeyes.com"
-    VERSION = "v6"
 
     # This variable is set to ensure we don't enter an infinite loop.
     # If there are more than 10,000 alert pages, there are bigger problems than this SDK not working.
@@ -20,7 +19,7 @@ class API:
         url: str = None,
         response_format: str = "json",
         aid: int = None,
-        ver: str = None
+        version: int = 6
     ):
         self._set_credentials(bearer_token, username, auth_token)
 
@@ -28,7 +27,8 @@ class API:
         # So we should stick to their nomenclature as much as possible, even if it's bad.
         self.aid = aid
         self.response_format = response_format
-        self.url = (url or ThousandEyes.DEFAULT_URL) + f'/{ver if ver else API.VERSION}'
+        self.url = (url or ThousandEyes.DEFAULT_URL) + f'/v{version}'
+
 
         # Verify connectivity
         self._request('/status')
