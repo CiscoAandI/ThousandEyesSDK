@@ -76,7 +76,7 @@ class API:
         payload = {
             'format': self.response_format,
             'window': None,  # TODO:
-            'aid:': self.aid
+            'aid': self.aid
         }
         headers = {
             **({'Authorization': f"Bearer {self._bearer_token}"} if self._bearer_token else {}),
