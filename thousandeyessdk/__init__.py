@@ -29,7 +29,6 @@ class API:
         self.response_format = response_format
         self.url = (url or ThousandEyes.DEFAULT_URL) + f'/v{version}'
 
-
         # Verify connectivity
         self._request('/status')
 
