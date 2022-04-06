@@ -147,6 +147,11 @@ class ThousandEyes(API):
         return Agents(self)
 
     @property
+    def dashboards(self):
+        from .dashboards import Dashboards
+        return Dashboards(self)
+        
+    @property
     def endpoint_data(self):
         from .endpoint_data import EndpointData
         return EndpointData(self)

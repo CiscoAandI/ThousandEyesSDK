@@ -17,6 +17,30 @@ class Agent(BaseEntity):
         """unique name of the agent"""
         return self._data.get('agentName')
 
+    @property
+    def activity_state(self):
+        return self._data.get('active')
+
+    @property
+    def active(self):
+        return self.activity_state == 1
+
+    @property
+    def metrics_at_start(self):
+        return self._data.get('metricsAtStart')
+
+    @property
+    def metrics_at_end(self):
+        return self._data.get('metricsAtEnd')
+
+    @property
+    def date_start(self):
+        return self._data.get('dateStart')
+
+    @property
+    def permalink(self):
+        return self._data.get('permalink')
+
     def update(self, **data):
         # This is yet another really silly api design decision by the thousand eyes team.
         # No reason you need to POST to an /update route. This API is wonky.
