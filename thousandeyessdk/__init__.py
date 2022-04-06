@@ -77,7 +77,7 @@ class API:
         payload = {
             'format': self.response_format,
             'window': None,  # TODO:
-            'aid:': self.aid
+            'aid': self.aid
         }
         headers = {
             **({'Authorization': f"Bearer {self._bearer_token}"} if self._bearer_token else {}),
@@ -156,6 +156,7 @@ class ThousandEyes(API):
     def endpoint_data(self):
         from .endpoint_data import EndpointData
         return EndpointData(self)
+
     @property
     def agent_tests(self):
         from .agent_tests import AgentTests
