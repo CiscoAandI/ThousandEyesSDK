@@ -26,5 +26,9 @@ class Test(BaseEntity):
     def domain(self):
         return self._data.get('domain', None)
 
+    @property
+    def country_id(self):
+        return self._data.get('countryId', None)
+
     def __repr__(self):
         return f'<Test id={self.id}>'

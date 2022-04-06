@@ -40,6 +40,10 @@ class Alert(BaseEntity):
         return self._data.get('type')
 
     @property
+    def test_targets_description(self):
+        return self._data.get('testTargetsDescription', [])
+
+    @property
     def rule(self) -> AlertRule:
         return self._api.alert_rules.get(self._data.get('ruleId'))
 
