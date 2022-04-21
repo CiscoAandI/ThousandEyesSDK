@@ -61,7 +61,7 @@ class Alert(BaseEntity):
 
     @property
     def violation_count(self):
-        pass
+        return self._data.get('violationCount')
 
     @property
     def permalink(self):
