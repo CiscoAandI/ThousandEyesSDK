@@ -2,10 +2,12 @@ from unittest import mock
 
 import pytest
 import requests
+import json
 
 from thousandeyessdk import ThousandEyes
+from thousandeyessdk.alert import Alert
 
-from . import AUTH_TOKEN, BEARER_TOKEN, URL, USERNAME
+from . import AUTH_TOKEN, BEARER_TOKEN, URL, USERNAME, ALERT
 
 
 class TestMain():
@@ -61,3 +63,10 @@ class TestMain():
             match=r"Account group ID \(aid\) must be an Integer. Instead we found invalid of type <class 'str'>"
         ):
             ThousandEyes(bearer_token=BEARER_TOKEN, aid='invalid')
+
+
+class TestAlert():
+
+    def test_alert_id(self):
+        alert = Alert('api',json.loads(ALERT),'/alerts')
+        assert alert.id == 123456789
