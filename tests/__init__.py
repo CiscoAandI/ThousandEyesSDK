@@ -5,8 +5,7 @@ URL = '/'.join([DEFAULT_URL, VERSION])
 USERNAME = 'foouser@foo.com'
 AUTH_TOKEN = 'fooauthtoken'
 BEARER_TOKEN = 'bearer token'
-ALERT="""
-{
+ALERT={
     "active": 0,
     "agents": [
         {
@@ -53,4 +52,3 @@ ALERT="""
     "type": "HTTP Server",
     "severity": "INFO"
 }
-"""
