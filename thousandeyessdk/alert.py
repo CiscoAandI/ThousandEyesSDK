@@ -6,7 +6,7 @@ from .test import Test
 
 
 class Alert(BaseEntity):
-    """single instance for a single alert"""
+    """A single instance for a single alert"""
 
     @property
     def id(self):
