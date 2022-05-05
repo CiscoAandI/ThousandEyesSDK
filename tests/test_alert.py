@@ -3,7 +3,7 @@ from unittest.mock import patch
 from thousandeyessdk import ThousandEyes as TE
 from thousandeyessdk.enum import AlertType
 
-from . import ALERT_WITH_AGENTS, ALERT_WITH_MONITORS, USERNAME, AUTH_TOKEN, URL, USERNAME
+from . import ALERT_WITH_AGENTS, ALERT_WITH_MONITORS, USERNAME, AUTH_TOKEN, USERNAME
 
 @patch('thousandeyessdk.requests.request')
 class TestAlert(TestCase):
@@ -25,12 +25,12 @@ class TestAlert(TestCase):
         assert alert.type.name == "HTTP_SERVER"
         assert alert.type == AlertType("HTTP Server")
         assert alert.string_type == "HTTP Server"
-        assert alert.date_start is None # date_start not supported currently
-        assert alert.date_end is None # date_end not supported currently
+        assert alert.date_start is None
+        assert alert.date_end is None
         assert alert.violation_count is 2
         assert alert.permalink == "https://app.thousandeyes.com/alerts/list/?__a=333666&alertId=111111111"
         assert agent_names == ['AGENT1', 'AGENT2']
-        assert alert.api_links is None #api_links not supported currently
+        assert alert.api_links is None
 
     def test_alert_with_monitors(self,m__request):
         m__request().json.return_value = ALERT_WITH_MONITORS
