@@ -124,5 +124,4 @@ ALERT_WITH_MONITORS={
     ]
 }
 
-ALERT_LIST = {}
 ALERT_LIST={"alert": [ALERT_WITH_AGENTS["alert"][0],ALERT_WITH_MONITORS["alert"][0]]}
