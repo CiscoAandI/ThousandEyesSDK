@@ -10,8 +10,12 @@ class TestAlert(TestCase):
     def test_alert_with_agents(self, m__request):
         m__request().json.return_value = ALERT_WITH_AGENTS
         m__request().ok=True
+
         te_client = TE(username=USERNAME, auth_token=AUTH_TOKEN)
+
         alert = te_client.alerts.get(ALERT_WITH_AGENTS['alert'][0]['alertId'])
+        agent_names = [name['agentName'] for name in alert.agents]
+
         assert alert.id == 111111111
         assert alert.active is False
         assert alert.inactive is True
@@ -25,16 +29,18 @@ class TestAlert(TestCase):
         assert alert.date_end is None # date_end not supported currently
         assert alert.violation_count is 2
         assert alert.permalink == "https://app.thousandeyes.com/alerts/list/?__a=333666&alertId=111111111"
-        agent_names = [name['agentName'] for name in alert.agents]
         assert agent_names == ['AGENT1', 'AGENT2']
         assert alert.api_links is None #api_links not supported currently
 
     def test_alert_with_monitors(self,m__request):
         m__request().json.return_value = ALERT_WITH_MONITORS
         m__request().ok=True
+
         te_client = TE(username=USERNAME, auth_token=AUTH_TOKEN)
+
         alert = te_client.alerts.get(ALERT_WITH_MONITORS['alert'][0]['alertId'])
         monitor_names = [name['monitorName'] for name in alert.monitors]
+
         assert monitor_names == ['Sydney-1', 'Los Angeles, CA', 'Geneva']
 
 
