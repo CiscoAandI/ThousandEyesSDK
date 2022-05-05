@@ -8,9 +8,9 @@ from . import ALERT_LIST, USERNAME, AUTH_TOKEN
 class TestAlerts(TestCase):
 
     @patch('thousandeyessdk.requests.request')
-    def test_alerts_ids(self, response_mock):
-        response_mock().json.return_value = ALERT_LIST
-        response_mock().ok = True
+    def test_alerts_ids(self, m__request):
+        m__request().json.return_value = ALERT_LIST
+        m__request().ok = True
         te_client = TE(username=USERNAME, auth_token=AUTH_TOKEN)
         alerts = alerts = te_client.alerts.list()
         alert_ids = [alert.id for alert in alerts]

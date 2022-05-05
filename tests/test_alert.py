@@ -7,9 +7,9 @@ from . import ALERT_WITH_AGENTS, ALERT_WITH_MONITORS, USERNAME, AUTH_TOKEN, URL,
 
 @patch('thousandeyessdk.requests.request')
 class TestAlert(TestCase):
-    def test_alert_with_agents(self, response_mock):
-        response_mock().json.return_value = ALERT_WITH_AGENTS
-        response_mock().ok=True
+    def test_alert_with_agents(self, m__request):
+        m__request().json.return_value = ALERT_WITH_AGENTS
+        m__request().ok=True
         te_client = TE(username=USERNAME, auth_token=AUTH_TOKEN)
         alert = te_client.alerts.get(ALERT_WITH_AGENTS['alert'][0]['alertId'])
         assert alert.id == 111111111
@@ -29,9 +29,9 @@ class TestAlert(TestCase):
         assert agent_names == ['AGENT1', 'AGENT2']
         assert alert.api_links == None #api_links not supported currently
 
-    def test_alert_with_monitors(self,response_mock):
-        response_mock().json.return_value = ALERT_WITH_MONITORS
-        response_mock().ok=True
+    def test_alert_with_monitors(self,m__request):
+        m__request().json.return_value = ALERT_WITH_MONITORS
+        m__request().ok=True
         te_client = TE(username=USERNAME, auth_token=AUTH_TOKEN)
         alert = te_client.alerts.get(ALERT_WITH_MONITORS['alert'][0]['alertId'])
         monitor_names = [name['monitorName'] for name in alert.monitors]
