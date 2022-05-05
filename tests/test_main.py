@@ -21,7 +21,7 @@ class TestMain():
             method='GET',
             url=TestMain.STATUS_URL,
             headers={}, auth=(USERNAME, AUTH_TOKEN),
-            params={'format': 'json', 'window': None, 'aid:': None},
+            params={'format': 'json', 'window': None, 'aid': None},
             json=None
         )
         assert TestMain.TEST_RESULT == requests.request().json()
@@ -36,7 +36,7 @@ class TestMain():
             url=TestMain.STATUS_URL,
             headers={'Authorization': f'Bearer {BEARER_TOKEN}'},
             auth=None,
-            params={'format': 'json', 'window': None, 'aid:': None},
+            params={'format': 'json', 'window': None, 'aid': None},
             json=None
         )
         assert TestMain.TEST_RESULT == requests.request().json()
