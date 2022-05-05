@@ -42,7 +42,3 @@ class TestAlert(TestCase):
         monitor_names = [name['monitorName'] for name in alert.monitors]
 
         assert monitor_names == ['Sydney-1', 'Los Angeles, CA', 'Geneva']
-
-
-
-
