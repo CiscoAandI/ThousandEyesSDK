@@ -19,7 +19,7 @@ class Alert(BaseEntity):
         {
             "alertId": 123456789
         }
-        integer of 123456789 will be returned
+        returns 123456789
         """
         return self._data.get('alertId')
     
@@ -202,15 +202,13 @@ class Alert(BaseEntity):
 
     @property
     def date_start(self):
-        """
-        not supported currently
+        """not supported currently
         """
         pass
 
     @property
     def date_end(self):
-        """
-        not supported currently
+        """not supported currently
         """
         pass
 
@@ -267,8 +265,7 @@ class Alert(BaseEntity):
 
     @property
     def api_links(self):
-        """
-        not supported currently
+        """not supported currently
         """
         pass
 
