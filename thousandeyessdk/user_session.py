@@ -16,6 +16,26 @@ class UserSession(BaseEntity):
     def source_address(self):
         return self._data.get('sourceAddr')
 
+    @property
+    def agent_id(self):
+        return self._data.get('agentId')
+
+    @property
+    def visited_site(self):
+        return self._data.get('visitedSite')
+
+    @property
+    def experience_score(self):
+        return self._data.get('experienceScore')
+
+    @property
+    def protocol(self):
+        return self._data.get('protocol')
+
+    @property
+    def network(self):
+        return self._data.get('network')
+
     def _get_detail(self) -> None:
         self._data |= self._api._request(f'/endpoint-data/user-sessions/{self.id}')['userSessions'][0]
 
