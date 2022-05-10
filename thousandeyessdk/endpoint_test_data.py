@@ -12,3 +12,8 @@ class EndpointTestData:
         url = f'/endpoint-data/tests/web/http-server/{test_id}'
         url = f'{url}?{query}' if query else url
         return self._api._request(url)
+
+    def detailed_path_trace(self, test_id, agent_id, round_id, query=""):
+        url = f'/net/path-vis/{test_id}/{agent_id}/{round_id}'
+        url = f'{url}?{query}' if query else url
+        return self._api._request(url)["net"]["pathVis"]
