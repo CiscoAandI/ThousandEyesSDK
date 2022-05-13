@@ -12,3 +12,8 @@ class EndpointData:
     def user_sessions(self):
         from .user_sessions import UserSessions
         return UserSessions(self._api)
+
+    @property
+    def test_data(self):
+        from .endpoint_test_data import EndpointTestData
+        return EndpointTestData(self._api)
