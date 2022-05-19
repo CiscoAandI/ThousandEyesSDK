@@ -114,25 +114,6 @@ class Alert(BaseEntity):
         """
         This is property to get type of the alert
         
-        :return: Enum name-value pair from AlertType class (refer to enum.py module) 
-            original type value of alert object can be returned using "string_type" property
-        :rtype: enum 'AlertType'
- 
-        example: for ThousandEyes alert object containing:
-        {
-            "type": "HTTP Server"
-        }
-        returns enum: <AlertType.HTTP_SERVER: 'HTTP Server'>
-        to access enum name use: "alert.type.name" which returns string: "AlertType.HTTP_SERVER"
-        to access enum value use: "alert.type.value" which returns string: "HTTP Server" (equivalent to 'string_type' property)
-        """
-        return AlertType.get(self._data.get('type'))
-
-    @property
-    def string_type(self):
-        """
-        This is property to get type of the alert
-        
         :return: value of "type" key
         :rtype: string
 
