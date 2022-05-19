@@ -5,7 +5,7 @@ class Dashboard(BaseEntity):
     """A single instance for a single dashboard"""
 
     def _get_detail(self) -> None:
-        self._data |= self._api._request(f'/dashboards/{self.id}')['dashboards'][0]
+        self._data |= self._api._request(f'/dashboards/{self.id}')
 
     @property
     def id(self) -> int:

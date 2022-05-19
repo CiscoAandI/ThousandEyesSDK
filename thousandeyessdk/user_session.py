@@ -37,7 +37,7 @@ class UserSession(BaseEntity):
         return self._data.get('network')
 
     def _get_detail(self) -> None:
-        self._data |= self._api._request(f'/endpoint-data/user-sessions/{self.id}')['userSessions'][0]
+        self._data |= self._api._request(f'/endpoint-data/user-sessions/{self.id}')
 
     def __repr__(self):
         return f'<UserSession id={self.id}>'

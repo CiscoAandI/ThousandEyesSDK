@@ -1,7 +1,7 @@
 from json.decoder import JSONDecodeError
 import requests
 import werkzeug
-
+import time
 
 class API:
     FORMATS = ["json", "xml"]
@@ -91,7 +91,6 @@ class API:
             params=payload,
             json=json
         )
-
         if raw:
             return response
 
@@ -118,6 +117,8 @@ class API:
             # if no pages left, we are done
             if 'next' not in paginated.get('pages', {}):
                 break
+            else:
+                url = paginated.get('pages').get('next').replace(self.url, '')
 
 
 class ThousandEyes(API):
