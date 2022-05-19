@@ -10,7 +10,8 @@ class Alert(BaseEntity):
 
     @property
     def id(self):
-        """This is property to get alert ID 
+        """
+        This is property to get alert ID 
 
         :return: value of "alertId" key
         :rtype: integer
@@ -25,7 +26,8 @@ class Alert(BaseEntity):
     
     @property
     def activity_state(self):
-        """This is property to get current state of alert
+        """
+        This is property to get current state of alert
         0 for inactive, 1 for active, 2 for disabled. 
         Alert is disabled if either alert rule itself has been deleted or the test it is applied to has been disabled,
         deleted, disabled alerting, or disassociated the alert rule from the test
@@ -43,7 +45,8 @@ class Alert(BaseEntity):
 
     @property
     def active(self):
-        """This is property to check if alert is currently active
+        """
+        This is property to check if alert is currently active
 
         :return: True if alert "active" key is 1
         :rtype: boolean
@@ -58,7 +61,8 @@ class Alert(BaseEntity):
 
     @property
     def inactive(self):
-        """This is property to check if alert is currently inactive
+        """
+        This is property to check if alert is currently inactive
         
         :return: True if alert "active" key is 0
         :rtype: boolean
@@ -73,7 +77,8 @@ class Alert(BaseEntity):
 
     @property
     def disabled(self):
-        """This is property to check if alert is currently disabled
+        """
+        This is property to check if alert is currently disabled
         Alert is disabled if either alert rule itself has been deleted or the test it is applied to has been disabled,
         deleted, disabled alerting, or disassociated the alert rule from the test
         
@@ -90,7 +95,8 @@ class Alert(BaseEntity):
 
     @property
     def rule_expression(self):
-        """This is property to get rule expression that triggered the alert
+        """
+        This is property to get rule expression that triggered the alert
 
         :return: value of "ruleExpression" key
         :rtype: string
@@ -105,7 +111,8 @@ class Alert(BaseEntity):
 
     @property
     def type(self):
-        """This is property to get type of the alert
+        """
+        This is property to get type of the alert
         
         :return: Enum name-value pair from AlertType class (refer to enum.py module) 
             original type value of alert object can be returned using "string_type" property
@@ -123,7 +130,8 @@ class Alert(BaseEntity):
 
     @property
     def string_type(self):
-        """This is property to get type of the alert
+        """
+        This is property to get type of the alert
         
         :return: value of "type" key
         :rtype: string
@@ -138,7 +146,8 @@ class Alert(BaseEntity):
 
     @property
     def test_targets_description(self):
-        """this key is not valid for alert object,
+        """
+        this key is not valid for alert object,
         testTargetsDescription exists in webhook alert object only
         This property will be deprecated in stable release        
         """
@@ -146,7 +155,8 @@ class Alert(BaseEntity):
 
     @property
     def rule(self) -> AlertRule:
-        """WARNING: this property is sending another API to /alert-rules endpoint
+        """
+        WARNING: this property is sending another API to /alert-rules endpoint
                  If you need to get just a ruleId then use 'rule_id' property instead
                  If you need to get rule object for the alert then use: "thousand_eyes.rules.get('alert.rule_id')"
                  This property will be deprecated in stable release
@@ -158,7 +168,8 @@ class Alert(BaseEntity):
 
     @property
     def rule_id(self):
-        """This is property to get alert rule ID that triggered the alert
+        """
+        This is property to get alert rule ID that triggered the alert
 
         :return: returns value of "ruleId" key
         :rtype: integer
@@ -174,7 +185,8 @@ class Alert(BaseEntity):
 
     @property
     def test(self) -> Test:
-        """WARNING: this property is sending another API to /tests endpoint
+        """
+        WARNING: this property is sending another API to /tests endpoint
                  If you need to get just a ruleId then use 'test_id' property instead
                  If you need to get test object for the alert then use: "thousand_eyes.tests.get('alert.test_id')"
                  This property will be deprecated in stable release
@@ -186,7 +198,8 @@ class Alert(BaseEntity):
 
     @property
     def test_id(self):
-        """This is property to get test ID that alert was triggered for.
+        """
+        This is property to get test ID that alert was triggered for.
 
         :return: returns value of "testId" key
         :rtype: integer
@@ -202,14 +215,12 @@ class Alert(BaseEntity):
 
     @property
     def date_start(self):
-        """not supported currently
-        """
+        """not supported currently"""
         pass
 
     @property
     def date_end(self):
-        """not supported currently
-        """
+        """not supported currently"""
         pass
 
     @property
@@ -229,7 +240,8 @@ class Alert(BaseEntity):
 
     @property
     def permalink(self):
-        """This is property to get hyperlink to alert
+        """
+        This is property to get hyperlink to alert
 
         :return: value of "permalink"
         :rtype: string
@@ -244,7 +256,8 @@ class Alert(BaseEntity):
 
     @property
     def agents(self):
-        """This is property to get array of agents where the alert has at some point 
+        """
+        This is property to get array of agents where the alert has at some point 
         been active since the point that the alert was triggered. Not shown on BGP alerts.
         if alert is BGP then empty list is returned
 
@@ -255,7 +268,8 @@ class Alert(BaseEntity):
 
     @property
     def monitors(self):
-        """This is property to get array of monitors where the alert has at some point been active since the point that the alert was triggered. Only shown on BGP alerts.
+        """
+        This is property to get array of monitors where the alert has at some point been active since the point that the alert was triggered. Only shown on BGP alerts.
         if alert is not BGP then empty list is returned
 
         :return: list of monitors
@@ -265,8 +279,7 @@ class Alert(BaseEntity):
 
     @property
     def api_links(self):
-        """not supported currently
-        """
+        """not supported currently"""
         pass
 
     def __repr__(self):
