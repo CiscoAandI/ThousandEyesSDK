@@ -126,6 +126,22 @@ class Alert(BaseEntity):
         return self._data.get('type')
 
     @property
+    def string_type(self):
+        """
+        this is duplicate propery of 'type' property to preserve backward compatibility
+        
+        :return: value of "type" key
+        :rtype: string
+
+        example: for ThousandEyes alert object containing:
+        {
+            "type": "HTTP Server"
+        }
+        returns "HTTP Server"
+        """
+        return self._data.get('type')
+
+    @property
     def test_targets_description(self):
         """
         this key is not valid for alert object,
