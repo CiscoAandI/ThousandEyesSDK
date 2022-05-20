@@ -1,6 +1,5 @@
 from .alert_rule import AlertRule
 from .core.base_entity import BaseEntity
-from .enum import AlertType
 from .agent import Agent
 from .test import Test
 
