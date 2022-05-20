@@ -28,8 +28,9 @@ class Alert(BaseEntity):
         """
         This is property to get current state of alert
         0 for inactive, 1 for active, 2 for disabled. 
-        Alert is disabled if either alert rule itself has been deleted or the test it is applied to has been disabled,
-        deleted, disabled alerting, or disassociated the alert rule from the test
+        Alert is disabled if either alert rule itself has been deleted or 
+        the test it is applied to has been disabled, deleted, disabled 
+        alerting, or disassociated the alert rule from the test
 
         :return: value of "active" key
         :rtype: integer
@@ -78,8 +79,9 @@ class Alert(BaseEntity):
     def disabled(self):
         """
         This is property to check if alert is currently disabled
-        Alert is disabled if either alert rule itself has been deleted or the test it is applied to has been disabled,
-        deleted, disabled alerting, or disassociated the alert rule from the test
+        Alert is disabled if either alert rule itself has been deleted or 
+        the test it is applied to has been disabled, deleted, disabled 
+        alerting, or disassociated the alert rule from the test
         
         :return: True if alert "active" key is 2
         :rtype: boolean
@@ -127,7 +129,8 @@ class Alert(BaseEntity):
     @property
     def string_type(self):
         """
-        this is duplicate propery of 'type' property to preserve backward compatibility
+        this is duplicate propery of 'type' property to preserve backward 
+        compatibility
         
         :return: value of "type" key
         :rtype: string
@@ -153,8 +156,9 @@ class Alert(BaseEntity):
     def rule(self) -> AlertRule:
         """
         WARNING: this property is sending another API to /alert-rules endpoint
-                 If you need to get just a ruleId then use 'rule_id' property instead
-                 If you need to get rule object for the alert then use: "thousand_eyes.rules.get('alert.rule_id')"
+                 If you need to get just a ruleId then use 'rule_id' property
+                 instead If you need to get rule object for the alert then 
+                 use: "thousand_eyes.rules.get('alert.rule_id')"
                  This property will be deprecated in stable release
 
         :return: associated rule object
@@ -183,8 +187,10 @@ class Alert(BaseEntity):
     def test(self) -> Test:
         """
         WARNING: this property is sending another API to /tests endpoint
-                 If you need to get just a ruleId then use 'test_id' property instead
-                 If you need to get test object for the alert then use: "thousand_eyes.tests.get('alert.test_id')"
+                 If you need to get just a ruleId then use 'test_id' property 
+                 instead If you need to get test object for the alert then 
+                 use:
+                 "thousand_eyes.tests.get('alert.test_id')"
                  This property will be deprecated in stable release
 
         :return: associated test object
@@ -221,7 +227,9 @@ class Alert(BaseEntity):
 
     @property
     def violation_count(self):
-        """This is property to get number of sources currently meeting the alert criteria
+        """
+        This is property to get number of sources currently meeting the 
+        alert criteria
 
         :return: value of "violationCount" key
         :rtype: integer 
@@ -253,19 +261,22 @@ class Alert(BaseEntity):
     @property
     def agents(self):
         """
-        This is property to get array of agents where the alert has at some point 
-        been active since the point that the alert was triggered. Not shown on BGP alerts.
+        This is property to get array of agents where the alert has at some 
+        point been active since the point that the alert was triggered. 
+        Not shown on BGP alerts.
         if alert is BGP then empty list is returned
 
         :return: list of agents
         :rtype: list
         """
-        return [agent_data for agent_data in self._data.get('agents',[])]
+        return [agent_data for agent_data in self._data.get('agents', [])]
 
     @property
     def monitors(self):
         """
-        This is property to get array of monitors where the alert has at some point been active since the point that the alert was triggered. Only shown on BGP alerts.
+        This is property to get array of monitors where the alert has at 
+        some point been active since the point that the alert was triggered.
+         Only shown on BGP alerts.
         if alert is not BGP then empty list is returned
 
         :return: list of monitors
