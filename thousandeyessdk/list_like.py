@@ -1,7 +1,7 @@
 from . import API
 
 
-class ListLike(API):
+class ListLike:
     SINGULAR_CLASS = None
     ROUTE = ''
     KEY = ''
