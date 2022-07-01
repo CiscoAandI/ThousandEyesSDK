@@ -134,7 +134,7 @@ class Alert(BaseEntity):
         }
         returns "HTTP Server"
         """
-        return self._data.get('type')
+        return self._data.get('type') or self._data.get('alertType')
 
     @property
     def test_targets_description(self):

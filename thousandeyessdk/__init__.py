@@ -21,6 +21,7 @@ class API:
         aid: int = None,
         version: int = 6
     ):
+        self.version = version
         self._set_credentials(bearer_token, username, auth_token)
 
         # AID is a very poor name for the account group id. But this is what the thousandeyes api calls it
@@ -124,7 +125,7 @@ class ThousandEyes(API):
     @property
     def alerts(self):
         from .alerts import Alerts
-        return Alerts(self)
+        return Alerts.create(self)
 
     @property
     def alert_rules(self):
