@@ -201,6 +201,10 @@ class Alert(BaseEntity):
         return self._data.get('testId')
 
     @property
+    def test_name(self):
+        return self._data.get("testName")
+
+    @property
     def date_start(self):
         """not supported currently
         """
