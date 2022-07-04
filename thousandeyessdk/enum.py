@@ -26,6 +26,24 @@ class AlertType(EnumBase):
     RTP_STREAM = 'RTP Stream'
 
 
+class AlertTypeV7(EnumBase):
+    BGP = 'bgp'
+    PATH_TRACE = 'path-trace'
+    END_TO_END_SERVER = 'end-to-end-server'
+    END_TO_END_AGENT = 'end-to-end-agent'
+    DNS_SERVER = 'dns-server'
+    DNS_TRACE = 'dns-trace'
+    DNS_DNSSEC = 'dns-dnssec'
+    HTTP_SERVER = 'http-server'
+    PAGE_LOAD = 'page-load'
+    WEB_TRANSACTION = 'web-transaction'
+    FTP_SERVER = 'ftp-server'
+    VOICE = 'voice'
+    SIP_SERVER = 'sip-server'
+    NETWORK_OUTAGE = 'network-outage'
+    APPLICATION_OUTAGE = 'application-outage'
+
+
 class AlertRuleDirection(EnumBase):
     TO_TARGET = 'TO_TARGET'
     FROM_TARGET = 'FROM_TARGET'

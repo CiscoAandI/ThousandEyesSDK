@@ -30,5 +30,13 @@ class Test(BaseEntity):
     def country_id(self):
         return self._data.get('countryId', None)
 
+    def get_detailed_path_trace(self, agent_id, round_id):
+        if self._api.version != 6:
+            return {}
+
+        endpoint = f'/net/path-vis/{self.id}/{agent_id}/{round_id}'
+        response = self._api._request(endpoint)
+        return response['net']
+
     def __repr__(self):
         return f'<Test id={self.id}>'
