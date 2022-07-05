@@ -1,6 +1,6 @@
 from .alert_rule import AlertRule
 from .core.base_entity import BaseEntity
-from .enum import AlertType, AlertTypeV7
+from .enum import AlertType
 from .agent import Agent
 from .test import Test
 
@@ -119,12 +119,7 @@ class Alert(BaseEntity):
         to access enum name use: "alert.type.name" which returns string: "AlertType.HTTP_SERVER"
         to access enum value use: "alert.type.value" which returns string: "HTTP Server" (equivalent to 'string_type' property)
         """
-        result = AlertType.get(self._data.get('type'))
-        if result:
-            return result
-
-        # fallback to v7
-        return AlertTypeV7.get(self._data.get('alertType'))
+        return AlertType.get(self._data.get('type'))
 
     @property
     def string_type(self):
