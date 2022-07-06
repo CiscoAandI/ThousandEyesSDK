@@ -76,14 +76,14 @@ class AlertNotifications(BaseEntity):
     @property
     def email(self) -> Optional[AlertNotificationEmail]:
         email = self._data.get('email')
-        return AlertNotificationEmail(self._api, email) if email else None
+        return AlertNotificationEmail(self._api, email, None) if email else None
 
     @property
     def webhooks(self) -> list[AlertNotificationIntegration]:
         # Singular
-        return [AlertNotificationIntegration(self._api, i) for i in self._data.get('webhook', [])]
+        return [AlertNotificationIntegration(self._api, i, None) for i in self._data.get('webhook', [])]
 
     @property
     def third_party(self) -> list[AlertNotificationIntegration]:
         # Singular
-        return [AlertNotificationIntegration(self._api, i) for i in self._data.get('thirdParty', [])]
+        return [AlertNotificationIntegration(self._api, i, None) for i in self._data.get('thirdParty', [])]

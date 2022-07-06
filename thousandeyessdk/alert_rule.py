@@ -91,7 +91,7 @@ class AlertRule(BaseEntity):
         if 'notifications' not in self._data:
             self._get_detail()
         notifications = self._data.get('notifications')
-        return AlertNotifications(self._api, notifications) if notifications else None
+        return AlertNotifications(self._api, notifications, None) if notifications else None
 
     @property
     def tests(self) -> list[dict]:
