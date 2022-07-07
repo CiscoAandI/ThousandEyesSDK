@@ -1,7 +1,5 @@
 from .alert_rule import AlertRule
 from .core.base_entity import BaseEntity
-from .enum import AlertType
-from .agent import Agent
 from .test import Test
 
 
@@ -107,23 +105,22 @@ class Alert(BaseEntity):
     def type(self):
         """This is property to get type of the alert
         
-        :return: Enum name-value pair from AlertType class (refer to enum.py module) 
-            original type value of alert object can be returned using "string_type" property
-        :rtype: enum 'AlertType'
+        :return: This is property to get type of the alert
+        :rtype: string
  
         example: for ThousandEyes alert object containing:
         {
             "type": "HTTP Server"
         }
-        returns enum: <AlertType.HTTP_SERVER: 'HTTP Server'>
-        to access enum name use: "alert.type.name" which returns string: "AlertType.HTTP_SERVER"
-        to access enum value use: "alert.type.value" which returns string: "HTTP Server" (equivalent to 'string_type' property)
+        returns enum: "HTTP Server"
         """
-        return AlertType.get(self._data.get('type'))
+        return self._data.get('type')
 
     @property
     def string_type(self):
-        """This is property to get type of the alert
+        """DEPRECATED. This is property to get type of the alert.
+        It returns the same value as type(self) but due to the
+        compatibility reason it remains untouched.
         
         :return: value of "type" key
         :rtype: string
