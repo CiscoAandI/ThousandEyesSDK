@@ -1,3 +1,4 @@
+from . import API
 from .alert import Alert
 from .list_like import ListLike
 
@@ -8,5 +9,5 @@ class Alerts(ListLike):
     """
     SINGULAR_CLASS = Alert
     ROUTE = '/alerts'
-    KEY = 'alert'
     OBJECT_NAME = 'Alert'
+    KEY = 'alert'

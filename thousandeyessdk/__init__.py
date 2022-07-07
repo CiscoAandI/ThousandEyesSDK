@@ -21,6 +21,7 @@ class API:
         aid: int = None,
         version: int = 6
     ):
+        self.version = version
         self._set_credentials(bearer_token, username, auth_token)
 
         # AID is a very poor name for the account group id. But this is what the thousandeyes api calls it
@@ -116,11 +117,30 @@ class API:
                 yield instance
 
             # if no pages left, we are done
-            if 'next' not in paginated.get('pages', {}):
+            if not key or 'next' not in paginated.get('pages', {}):
                 break
 
 
 class ThousandEyes(API):
+    def __init__(
+        self,
+        bearer_token: str = None,
+        username: str = None,
+        auth_token: str = None,
+        url: str = None,
+        response_format: str = "json",
+        aid: int = None,
+    ):
+        super().__init__(
+            bearer_token,
+            username,
+            auth_token,
+            url,
+            response_format,
+            aid,
+            version=6,
+        )
+
     @property
     def alerts(self):
         from .alerts import Alerts
@@ -156,7 +176,33 @@ class ThousandEyes(API):
         from .endpoint_data import EndpointData
         return EndpointData(self)
 
+
+class ThousandEyesV7(API):
+    def __init__(
+        self,
+        bearer_token: str = None,
+        username: str = None,
+        auth_token: str = None,
+        url: str = None,
+        response_format: str = "json",
+        aid: int = None,
+    ):
+        super().__init__(
+            bearer_token,
+            username,
+            auth_token,
+            url,
+            response_format,
+            aid,
+            version=7,
+        )
+
     @property
-    def agent_tests(self):
-        from .agent_tests import AgentTests
-        return AgentTests(self)
+    def alerts(self):
+        from .v7 import Alerts
+        return Alerts(self)
+
+    @property
+    def dashboards(self):
+        from .v7 import Dashboards
+        return Dashboards(self)
