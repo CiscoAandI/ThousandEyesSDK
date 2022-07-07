@@ -11,6 +11,9 @@ class AlertListing(BaseEntity):
     def type(self):
         return self._data.get('alertType')
 
+    def __repr__(self):
+        return f'<AlertListing id={self.id}, type={self.type}>'
+
 
 class Alert(BaseEntity):
     @property
@@ -24,6 +27,9 @@ class Alert(BaseEntity):
     @property
     def locations(self):
         return self._data.get('locations', [])
+
+    def __repr__(self):
+        return f'<Alert id={self.id}, type={self.type}>'
 
 
 class Alerts(ListLikeListingClass):

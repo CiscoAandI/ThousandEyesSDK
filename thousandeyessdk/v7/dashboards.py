@@ -11,6 +11,9 @@ class Dashboard(BaseEntity):
     def title(self):
         return self._data.get('title')
 
+    def __repr__(self):
+        return f'<Dashboard id={self.id} title={self.title}>'
+
 
 class Dashboards(ListLike):
     SINGULAR_CLASS = Dashboard
