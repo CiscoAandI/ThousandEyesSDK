@@ -134,7 +134,7 @@ class Alert(BaseEntity):
         }
         returns "HTTP Server"
         """
-        return self._data.get('type') or self._data.get('alertType')
+        return self._data.get('type')
 
     @property
     def test_targets_description(self):
@@ -245,10 +245,6 @@ class Alert(BaseEntity):
         returns "https://app.thousandeyes.com/alerts/list/?__a=333666&alertId=123456789"
         """
         return self._data.get('permalink')
-
-    @property
-    def locations(self):
-        return self._data.get('locations', [])
 
     @property
     def agents(self):

@@ -117,15 +117,34 @@ class API:
                 yield instance
 
             # if no pages left, we are done
-            if 'next' not in paginated.get('pages', {}):
+            if not key or 'next' not in paginated.get('pages', {}):
                 break
 
 
 class ThousandEyes(API):
+    def __init__(
+        self,
+        bearer_token: str = None,
+        username: str = None,
+        auth_token: str = None,
+        url: str = None,
+        response_format: str = "json",
+        aid: int = None,
+    ):
+        super().__init__(
+            bearer_token,
+            username,
+            auth_token,
+            url,
+            response_format,
+            aid,
+            version=6,
+        )
+
     @property
     def alerts(self):
         from .alerts import Alerts
-        return Alerts.create(self)
+        return Alerts(self)
 
     @property
     def alert_rules(self):
@@ -156,3 +175,34 @@ class ThousandEyes(API):
     def endpoint_data(self):
         from .endpoint_data import EndpointData
         return EndpointData(self)
+
+
+class ThousandEyesV7(API):
+    def __init__(
+        self,
+        bearer_token: str = None,
+        username: str = None,
+        auth_token: str = None,
+        url: str = None,
+        response_format: str = "json",
+        aid: int = None,
+    ):
+        super().__init__(
+            bearer_token,
+            username,
+            auth_token,
+            url,
+            response_format,
+            aid,
+            version=7,
+        )
+
+    @property
+    def alerts(self):
+        from .v7 import Alerts
+        return Alerts(self)
+
+    @property
+    def dashboards(self):
+        from .v7 import Dashboards
+        return Dashboards(self)
