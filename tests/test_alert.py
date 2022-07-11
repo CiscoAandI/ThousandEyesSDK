@@ -21,9 +21,7 @@ class TestAlert(TestCase):
         assert alert.inactive is True
         assert alert.disabled is False
         assert alert.rule_expression == "((responseTime >= 300 ms))"
-        assert alert.type.value == "HTTP Server"
-        assert alert.type.name == "HTTP_SERVER"
-        assert alert.type == AlertType("HTTP Server")
+        assert alert.type == "HTTP Server"
         assert alert.string_type == "HTTP Server"
         assert alert.date_start is None
         assert alert.date_end is None
