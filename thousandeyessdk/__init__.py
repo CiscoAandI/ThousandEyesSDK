@@ -122,25 +122,6 @@ class API:
 
 
 class ThousandEyes(API):
-    def __init__(
-        self,
-        bearer_token: str = None,
-        username: str = None,
-        auth_token: str = None,
-        url: str = None,
-        response_format: str = "json",
-        aid: int = None,
-    ):
-        super().__init__(
-            bearer_token,
-            username,
-            auth_token,
-            url,
-            response_format,
-            aid,
-            version=6,
-        )
-
     @property
     def alerts(self):
         from .alerts import Alerts
@@ -150,6 +131,11 @@ class ThousandEyes(API):
     def alert_rules(self):
         from .alert_rules import AlertRules
         return AlertRules(self)
+
+    @property
+    def agent_tests(self):
+        from .agent_tests import AgentTests
+        return AgentTests(self)
 
     @property
     def tests(self):
