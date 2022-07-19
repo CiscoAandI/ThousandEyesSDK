@@ -9,7 +9,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='thousandeyessdk',
-    version='0.0.6a9',
+    version='0.0.6a10',
     description='Python SDK for ThousandEyes API Monitoring Service',
     long_description="Python SDK for ThousandEyes API Monitoring Service",
     long_description_content_type='text/markdown',

@@ -71,7 +71,7 @@ class API:
             )
         self._aid = value
 
-    def _request(self, url: str, method: str = "GET", json=None, raw=False) -> dict:
+    def _request(self, url: str, method: str = "GET", json=None, raw=False, exact_url=False) -> dict:
         # window = self._generate_window(window_integer=window_integer, window_unit=window_unit)
 
         payload = {
@@ -81,15 +81,17 @@ class API:
         }
         headers = {
             **({'Authorization': f"Bearer {self._bearer_token}"} if self._bearer_token else {}),
-            **({'Content-Type': 'application/json'} if method != 'GET' else {})
+            **({'Content-Type': 'application/json'} if method != 'GET' else {}),
         }
 
+        url = url if exact_url else self.url + url
+        params = {} if exact_url else payload
         response = requests.request(
             method=method,
-            url=self.url + url,
+            url=url,
             headers=headers,
             auth=self._auth,
-            params=payload,
+            params=params,
             json=json
         )
 
@@ -111,14 +113,34 @@ class API:
         generic generator for handling API pagination
         """
         # Use timeout pattern to ensure no infinite loops
-        for _ in range(self.MAXIMUM_PAGES):
-            paginated = self._request(url)
-            for instance in (paginated[key] if key else paginated):
+        page = 0
+        for response in self._follow_pagination(url):
+            for instance in (response[key] if key else response):
                 yield instance
 
-            # if no pages left, we are done
-            if not key or 'next' not in paginated.get('pages', {}):
+            page += 1
+            if page > self.MAXIMUM_PAGES:
                 break
+
+    def _follow_pagination(self, url: str):
+        response = self._request(url)
+        next_page_url = self._get_next_page_url(response)
+
+        yield response
+
+        while next_page_url:
+            response = self._request(next_page_url, exact_url=True)
+            next_page_url = self._get_next_page_url(response)
+
+            yield response
+
+    def _get_next_page_url(self, response):
+        # we might get sth other than dict as response
+        pages = {}
+        if isinstance(response, dict):
+            pages = response.get("pages", {})
+
+        return pages.get("next", None)
 
 
 class ThousandEyes(API):
