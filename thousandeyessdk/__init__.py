@@ -155,11 +155,6 @@ class ThousandEyes(API):
         return AlertRules(self)
 
     @property
-    def agent_tests(self):
-        from .agent_tests import AgentTests
-        return AgentTests(self)
-
-    @property
     def tests(self):
         from .tests import Tests
         return Tests(self)
