@@ -1,11 +1,20 @@
-from . import API
+class BaseEntity:
+    def __init__(self, api, data, path, details=None):
+        self._api = api
+        self._data = data
+        self._path = path
+        self._details = details
+
+    @property
+    def data(self):
+        return self._data
 
 
 class ListLike:
     SINGULAR_CLASS = None
-    ROUTE = ''
-    KEY = ''
-    OBJECT_NAME = ''
+    ROUTE = ""
+    KEY = ""
+    OBJECT_NAME = ""
 
     def __init__(self, api, data: list[dict] = None):
         self._api = api
@@ -18,12 +27,8 @@ class ListLike:
 
     def get(self, item_id: int):
         if not self._data:
-            url = f'{self.ROUTE}/{item_id}'
-            return self.SINGULAR_CLASS(
-                self._api,
-                self._api._request(url)[self.KEY][0],
-                url
-            )
+            url = f"{self.ROUTE}/{item_id}"
+            return self.SINGULAR_CLASS(self._api, self._api._request(url)[self.KEY][0], url)
         else:
             for item in self.list():
                 if item.id == item_id:
@@ -32,7 +37,7 @@ class ListLike:
 
     def get_all_with_id(self, item_id: int):
         if not self._data:
-            url = f'{self.ROUTE}/{item_id}'
+            url = f"{self.ROUTE}/{item_id}"
             return [self.SINGULAR_CLASS(self._api, obj_data, url) for obj_data in self._api._request(url)[self.KEY]]
         else:
             result_list = []
@@ -40,4 +45,3 @@ class ListLike:
                 if item.id == item_id:
                     result_list.append(item)
             return result_list
-
