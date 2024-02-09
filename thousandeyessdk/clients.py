@@ -8,6 +8,8 @@ from werkzeug.exceptions import default_exceptions
 
 from . import resources
 
+from .v7 import resources as resources_v7
+
 from .rate_limit import RateLimit
 
 
@@ -155,6 +157,11 @@ class Resources:
         self.groups = resources.Groups(api)
 
 
+class ResourcesV7:
+    def __init__(self, api):
+        self.outages = resources_v7.Outages(api)
+
+
 class ThousandEyes(API):
     def __init__(
         self,
@@ -234,6 +241,7 @@ class ThousandEyesV7(API):
             aid,
             version=7,
         )
+        self.resources = ResourcesV7(self)
 
     @property
     def alerts(self):
