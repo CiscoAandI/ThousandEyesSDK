@@ -1,4 +1,4 @@
-from ..list_like import ListLike
+from ..core import ListLike
 
 
 class ListLikeListingClass(ListLike):
