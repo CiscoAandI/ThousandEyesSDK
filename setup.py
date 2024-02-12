@@ -30,7 +30,7 @@ setup(
     keywords='thousandeyes, api, rest, sdk, cisco',
     packages=find_packages(),
     python_requires='>=3.6',
-    install_requires=['requests==2.31.0', 'werkzeug==2.0.1', 'stringcase==1.2.0'],
+    install_requires=['requests==2.31.0', 'werkzeug==3.0.1', 'stringcase==1.2.0'],
     extras_require={
         'dev': ['wheel'],
         'test': ['pytest==6.2.4', 'pytest-blockage==0.2.2', 'pytest-cov==2.12.0'],
