@@ -155,6 +155,7 @@ class Resources:
         self.user_sessions = resources.UserSessions(api)
         self.endpoint_agents = resources.EndpointAgents(api)
         self.groups = resources.Groups(api)
+        self.label_groups = resources.LabelGroups(api)
 
 
 class ResourcesV7:
