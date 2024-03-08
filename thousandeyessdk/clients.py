@@ -41,19 +41,25 @@ class API:
         url: Optional[str] = None,
         aid: int = None,
         version: int = 6,
+        bearer_token: str = ""
     ):
         self.version = version
-        if not (username and auth_token):
+        if not (username and auth_token) and not bearer_token:
             raise InvalidCredentials()
-        self._auth = (username, auth_token)
+        if bearer_token:
+            self._auth = None
+        else:
+            self._auth = (username, auth_token)
 
         # AID is a very poor name for the account group id. But this is what the thousandeyes api calls it
         # So we should stick to their nomenclature as much as possible, even if it's bad.
         self.aid = aid
         self.url = (url or ThousandEyes.DEFAULT_URL) + f"/v{version}"
+        self._bearer_token = bearer_token
 
         # Verify connectivity
         self._request("/status")
+
 
     @property
     def aid(self) -> int:
@@ -75,7 +81,8 @@ class API:
 
         params = {"format": "json", "window": None, "aid": self.aid}
         headers = {"content-type": "application/json"}
-
+        if self._bearer_token:
+            headers.update(Authorization=f"Bearer {self._bearer_token}")
         url = url if exact_url else self.url + url
         params = {} if exact_url else params
         LOG.debug(f"sending request to {url}")
@@ -170,8 +177,10 @@ class ThousandEyes(API):
         auth_token: str,
         url: Optional[str] = None,
         aid: int = None,
+        bearer_token: str = ""
     ):
-        super().__init__(username, auth_token, url, aid, version=6)
+        super().__init__(username, auth_token, url, aid, version=6,
+                         bearer_token=bearer_token)
         self.resources = Resources(self)
         self.alert_rules = resources.AlertRules(self)
         self.tests_e2e = resources.Tests(self)
@@ -234,6 +243,7 @@ class ThousandEyesV7(API):
         auth_token: str,
         url: Optional[str] = None,
         aid: int = None,
+        bearer_token: str = ""
     ):
         super().__init__(
             username,
@@ -241,6 +251,7 @@ class ThousandEyesV7(API):
             url,
             aid,
             version=7,
+            bearer_token=bearer_token
         )
         self.resources = ResourcesV7(self)
 
