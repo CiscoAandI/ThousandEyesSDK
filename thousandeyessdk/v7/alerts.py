@@ -45,3 +45,14 @@ class Alerts(ListLikeListingClass):
         url = f"{self.ROUTE}/{alert_id}"
         result = self._api._request(url)
         return self.SINGULAR_CLASS(self._api, result, url)
+
+    def list(self, query="", state="", start_date="", end_date="",
+             window="", max_=""):
+        names = ["state", "startDate", "endDate", "window", "max"]
+        values = [state, start_date, end_date, window, max_]
+        for name, val in zip(names, values):
+            if val and val not in query:
+                query += f"{name}={val}"
+        return super().list(query)
+
+
