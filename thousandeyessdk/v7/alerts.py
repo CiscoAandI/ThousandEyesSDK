@@ -1,6 +1,8 @@
-from ..core import BaseEntity
-from .list_like import ListLikeListingClass
 import warnings
+
+from .list_like import ListLikeListingClass
+from ..core import BaseEntity
+
 
 class AlertListing(BaseEntity):
     @property
@@ -11,11 +13,44 @@ class AlertListing(BaseEntity):
     def type(self):
         return self._data.get("alertType")
 
+    @property
+    def date_start(self):
+        return self._data.get("startDate")
+
+    @property
+    def date_end(self):
+        return self._data.get("endDate")
+
+    @property
+    def test_id(self):
+        test = self._data.get("_links", {}).get("test")
+        return test.split("/")[-1] if "/" in test else None
+
+    @property
+    def violation_count(self):
+        return self._data.get("violationCount")
+
+    @property
+    def permalink(self):
+        return self._data.get("permalink")
+
+    @property
+    def severity(self):
+        return self._data.get("severity")
+
+    @property
+    def state(self):
+        return self._data.get("state")
+
+    @property
+    def active(self):
+        return self.state == "ACTIVE"
+
     def __repr__(self):
         return f"<AlertListing id={self.id}, type={self.type}>"
 
 
-class Alert(BaseEntity):
+class Alert(AlertListing):
     @property
     def id(self):
         return self._data.get("alertId")
@@ -54,5 +89,3 @@ class Alerts(ListLikeListingClass):
             if val and val not in query:
                 query += f"{name}={val}"
         return super().list(query)
-
-
