@@ -83,10 +83,14 @@ class Alerts(ListLikeListingClass):
 
     def list(self, query="", state="", start_date="", end_date="",
              window="", max_=""):
-        query = []
+        q = []
         names = ["state", "startDate", "endDate", "window", "max"]
         values = [state, start_date, end_date, window, max_]
         for name, val in zip(names, values):
-            if val and val not in query:
-                query.append(f"{name}={val}")
-        return super().list("&".join(query))
+            if val and name not in query:
+                q.append(f"{name}={val}")
+        q = "&".join(q)
+        if query and q:
+            query = query + "&" + q
+        return super().list(query)
+
