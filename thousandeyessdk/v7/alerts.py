@@ -23,8 +23,8 @@ class AlertListing(BaseEntity):
 
     @property
     def test_id(self):
-        test = self._data.get("_links", {}).get("test")
-        return test.split("/")[-1] if "/" in test else None
+        test = self._data.get("_links", {}).get("test", {}).get("href")
+        return test.split("/")[-1] if test and "/" in test else None
 
     @property
     def violation_count(self):
@@ -83,9 +83,10 @@ class Alerts(ListLikeListingClass):
 
     def list(self, query="", state="", start_date="", end_date="",
              window="", max_=""):
+        query = []
         names = ["state", "startDate", "endDate", "window", "max"]
         values = [state, start_date, end_date, window, max_]
         for name, val in zip(names, values):
             if val and val not in query:
-                query += f"{name}={val}"
-        return super().list(query)
+                query.append(f"{name}={val}")
+        return super().list("&".join(query))
