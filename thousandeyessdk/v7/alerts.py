@@ -6,6 +6,10 @@ from ..core import BaseEntity
 
 
 class AlertListing(BaseEntity):
+    def __init__(self, api, data, path, single=None):
+        super().__init__(api, data, path)
+        self.single = single
+
     @property
     def id(self):
         return self._data.get("alertId")
@@ -58,6 +62,14 @@ class AlertListing(BaseEntity):
     @property
     def rule_id(self):
         return self._data.get("ruleId")
+
+    def get_single(self) -> 'Alert':
+        if self.single:
+            return self.single
+        path = f"/alerts/{self.id}"
+        result = self._api._request(path)
+        self.single = Alert(self._api, result, path)
+        return self.single
 
     def __repr__(self):
         return f"<AlertListing id={self.id}, type={self.type}>"
