@@ -24,6 +24,6 @@ class TestMain:
         ):
             ThousandEyes(username=USERNAME, auth_token=AUTH_TOKEN, aid="invalid")
 
-    def test_wrong_status_endpoint_response(self, mocked_requests__invalid_credentials):
+    def test_throws_error_when_wrong_credentials(self, mocked_requests__invalid_credentials):
         with pytest.raises(werkzeug.exceptions.Unauthorized):
             ThousandEyes("", "", bearer_token="invalid token")
