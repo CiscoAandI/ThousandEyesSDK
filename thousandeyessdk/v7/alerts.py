@@ -1,5 +1,6 @@
 import warnings
 
+from .agents import Agent
 from .list_like import ListLikeListingClass
 from ..core import BaseEntity
 
@@ -46,22 +47,31 @@ class AlertListing(BaseEntity):
     def active(self):
         return self.state == "ACTIVE"
 
+    @property
+    def api_links(self):
+        return self._data.get("apiLinks")
+
+    @property
+    def links(self):
+        return self._data.get("_links")
+
+    @property
+    def rule_id(self):
+        return self._data.get("ruleId")
+
     def __repr__(self):
         return f"<AlertListing id={self.id}, type={self.type}>"
 
 
 class Alert(AlertListing):
     @property
-    def id(self):
-        return self._data.get("alertId")
-
-    @property
-    def type(self):
-        return self._data.get("alertType")
-
-    @property
     def locations(self):
         return self._data.get("locations", [])
+
+    @property
+    def details(self) -> list[Agent]:
+        details = self.data.get("details", [])
+        return [Agent(self._api, detail, f"/agents/{detail.get('id')}") for detail in details]
 
     def __repr__(self):
         return f"<Alert id={self.id}, type={self.type}>"
@@ -93,4 +103,3 @@ class Alerts(ListLikeListingClass):
         if query and q:
             query = query + "&" + q
         return super().list(query)
-
