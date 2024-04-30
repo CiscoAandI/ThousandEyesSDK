@@ -76,6 +76,22 @@ class API:
     def request(self, url: str, method: str = "GET", data: Optional[dict] = None):
         return self._request(url, method, json=data)
 
+    @staticmethod
+    def _handle_response(response: requests.Response, url: str):
+        try:
+            data = response.json()
+            error_message = data.get("errorMessage") or data.get("error")
+            is_response_ok = response.ok
+            if not error_message and is_response_ok:
+                return data
+
+            exception_class = default_exceptions[response.status_code]
+            raise exception_class(error_message)
+        except (JSONDecodeError, requests.JSONDecodeError):
+            LOG.error(f'Cannot decode response from "{url}": {response.text} ')
+
+        response.raise_for_status()
+
     def _request(self, url: str, method: str = "GET", json=None, raw=False, exact_url=False) -> dict:
         # window = self._generate_window(window_integer=window_integer, window_unit=window_unit)
 
@@ -104,19 +120,8 @@ class API:
                 break
         if raw:
             return response
+        return self._handle_response(response, url)
 
-        try:
-            data = response.json()
-            error_message = data.get("errorMessage")
-            if not error_message:
-                return data
-
-            exception_class = default_exceptions[response.status_code]
-            raise exception_class(error_message)
-        except (JSONDecodeError, requests.JSONDecodeError):
-            LOG.error(f'Cannot decode response from "{url}": {response.text} ')
-
-        response.raise_for_status()
 
     def _list(self, url, key=None):
         """
