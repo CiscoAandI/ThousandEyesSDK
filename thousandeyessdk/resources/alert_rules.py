@@ -23,6 +23,14 @@ class AlertRuleDefinition:
     notify_on_clear: int = 0
 
     def asdict(self):
+        if not self.webhook_id:
+            notifications = {}
+        else:
+            notifications = {
+                "webhook": [
+                    {"integrationId": self.webhook_id, "integrationType": "WEBHOOK"},
+                ],
+            }
         return {
             "alertType": self.alert_type,
             "ruleName": self.rule_name,
@@ -31,11 +39,7 @@ class AlertRuleDefinition:
             "minimumSources": self.minimum_sources,
             "roundsViolatingRequired": self.rounds_violating_required,
             "roundsViolatingOutOf": self.rounds_violating_out_of,
-            "notifications": {
-                "webhook": [
-                    {"integrationId": self.webhook_id, "integrationType": "WEBHOOK"},
-                ],
-            },
+            "notifications": notifications,
             "severity": self.severity,
             "notifyOnClear": self.notify_on_clear,
         }
