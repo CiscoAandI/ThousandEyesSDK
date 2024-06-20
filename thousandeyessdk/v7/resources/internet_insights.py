@@ -11,6 +11,7 @@ class Outages:
         start_date=None,
         end_date=None,
         only_active=True,
+        provider_names=None
     ) -> list[dict]:
         filter = {}
         if scope:
