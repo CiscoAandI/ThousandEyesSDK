@@ -57,10 +57,6 @@ class API:
         self.url = (url or ThousandEyes.DEFAULT_URL) + f"/v{version}"
         self._bearer_token = bearer_token
 
-        # Verify connectivity
-        self._request("/status", use_aid=False)
-
-
     @property
     def aid(self) -> int:
         return self._aid
@@ -92,10 +88,9 @@ class API:
 
         response.raise_for_status()
 
-    def _request(self, url: str, method: str = "GET", json=None, raw=False, exact_url=False,
-                 use_aid=True) -> dict:
+    def _request(self, url: str, method: str = "GET", json=None, raw=False, exact_url=False) -> dict:
         # window = self._generate_window(window_integer=window_integer, window_unit=window_unit)
-        params = {"window": None, "aid": self.aid if use_aid else None}
+        params = {"window": None, "aid": self.aid}
         headers = {"content-type": "application/json"}
         if self._bearer_token:
             headers.update(Authorization=f"Bearer {self._bearer_token}")
