@@ -57,10 +57,6 @@ class API:
         self.url = (url or ThousandEyes.DEFAULT_URL) + f"/v{version}"
         self._bearer_token = bearer_token
 
-        # Verify connectivity
-        self._request("/status")
-
-
     @property
     def aid(self) -> int:
         return self._aid
