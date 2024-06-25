@@ -94,13 +94,14 @@ class API:
 
     def _request(self, url: str, method: str = "GET", json=None, raw=False, exact_url=False) -> dict:
         # window = self._generate_window(window_integer=window_integer, window_unit=window_unit)
-
-        params = {"format": "json", "window": None, "aid": self.aid}
+        params = {"window": None, "aid": self.aid}
         headers = {"content-type": "application/json"}
         if self._bearer_token:
             headers.update(Authorization=f"Bearer {self._bearer_token}")
         url = url if exact_url else self.url + url
         params = {} if exact_url else params
+        if not url.endswith(".json"):
+            url = url + ".json"
         LOG.debug(f"sending request to {url}")
         while True:
             response = requests.request(
