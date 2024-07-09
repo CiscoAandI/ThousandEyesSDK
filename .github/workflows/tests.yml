@@ -27,4 +27,5 @@ jobs:
 
     - name: Run tests with pytest
       run: |
+        export PYTHONPATH=${PYTHONPATH}:$(pwd)
         pytest --cov=./ --cov-report=term-missing
