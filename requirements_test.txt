@@ -1,0 +1,6 @@
+requests==2.31.0
+werkzeug==3.0.1
+stringcase==1.2.0
+pytest==6.2.4
+pytest-blockage==0.2.2
+pytest-cov==2.12.0
