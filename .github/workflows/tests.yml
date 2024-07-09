@@ -1,0 +1,32 @@
+name: Python Test and Coverage
+
+# This workflow is triggered on pushes and pull requests to the repository.
+on: [push, workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 2 # Shallow clone the repository with a history truncated to the last 2 commits
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements_test.txt ]; then pip install -r requirements_test.txt; fi
+        pip install pytest pytest-cov
+
+    - name: Run tests with pytest
+      run: |
+        pytest --cov=./ --cov-report=term-missing
