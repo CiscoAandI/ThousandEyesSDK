@@ -8,7 +8,7 @@ from ..core import BaseEntity
 class AlertListing(BaseEntity):
     @property
     def id(self):
-        return self._data.get("alertId")
+        return self._data.get("alertId") or self._data.get("id")
 
     @property
     def type(self):

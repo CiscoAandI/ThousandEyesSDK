@@ -266,3 +266,9 @@ class ThousandEyesV7(API):
         from .v7 import Dashboards
 
         return Dashboards(self)
+
+    @property
+    def tests(self):
+        from .v7 import Tests
+
+        return Tests(self)
