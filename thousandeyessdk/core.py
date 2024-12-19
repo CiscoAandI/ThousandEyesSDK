@@ -1,3 +1,5 @@
+import json
+
 class BaseEntity:
     def __init__(self, api, data, path, details=None):
         self._api = api
@@ -9,6 +11,10 @@ class BaseEntity:
     def data(self):
         return self._data
 
+    @property
+    def as_json(self):
+        return json.dumps(self._data, indent=4)
+
 
 class ListLike:
     SINGULAR_CLASS = None
@@ -19,6 +25,9 @@ class ListLike:
     def __init__(self, api, data: list[dict] = None):
         self._api = api
         self._data = data
+
+    def set_cache(self):
+        self._data = list(self._api._list(self.ROUTE, key=self.KEY))
 
     def list(self, query=""):
         url = f"{self.ROUTE}?{query}" if query else self.ROUTE
