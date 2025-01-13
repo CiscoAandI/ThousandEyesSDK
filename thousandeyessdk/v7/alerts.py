@@ -3,7 +3,8 @@ import warnings
 from .agents import Agent
 from .list_like import ListLikeListingClass
 from ..core import BaseEntity
-
+from .tests import Test
+from .rules import Rule
 
 class AlertListing(BaseEntity):
     @property
@@ -70,6 +71,15 @@ class AlertListing(BaseEntity):
     def __repr__(self):
         return f"<AlertListing id={self.id}, type={self.type}>"
 
+    @property
+    def rule(self) -> Rule:
+        url = self.links.get("rule", {}).get("href").split("/v7")[1]
+        return Rule(self._api, self._api._request(url), url)
+
+    @property
+    def test(self) -> Test:
+        url = self.links.get("test", {}).get("href").split("/v7")[1]
+        return Test(self._api, self._api._request(url), url)
 
 class Alert(AlertListing):
     @property

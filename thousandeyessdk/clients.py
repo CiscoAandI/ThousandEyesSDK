@@ -272,3 +272,9 @@ class ThousandEyesV7(API):
         from .v7 import Tests
 
         return Tests(self)
+
+    @property
+    def rules(self):
+        from .v7 import Rules
+
+        return Rules(self)
