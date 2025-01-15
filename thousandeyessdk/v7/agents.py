@@ -1,31 +1,66 @@
-from thousandeyessdk.core import BaseEntity
+#https://developer.cisco.com/docs/thousandeyes/v7/list-cloud-and-enterprise-agents/
+
+from .list_like import ListLikeListingClass
+from ..core import BaseEntity
 
 
-class Agent(BaseEntity):
-
-    def __repr__(self):
-        return f"<Agent {self.id} {self.name}>"
+class AgentListing(BaseEntity):
 
     @property
     def id(self):
-        return self.data.get("id")
+        return self._data.get("agentId")
 
     @property
     def name(self):
-        return self.data.get("name")
+        return self._data.get("agentName")
 
     @property
     def type(self):
-        return self.data.get("type")
+        return self._data.get("agentType")
 
     @property
-    def state(self):
-        return self.data.get("state")
+    def country_id(self):
+        return self._data.get("countryId")
 
     @property
-    def metrics_at_start(self):
-        return self.data.get("start", {}).get("metrics")
+    def location(self):
+        return self._data.get("location")
+        
+    @property
+    def created_date(self):
+        return self._data.get("createdDate")
 
     @property
-    def metrics_at_end(self):
-        return self.data.get("end", {}).get("metrics")
+    def ip_addresses(self):
+        return self._data.get("ipAddresses")
+
+
+class Agent(AgentListing):
+
+    @property
+    def group_names(self):
+        return self.label_names
+
+    @property
+    def label_names(self):
+        return [label.get("name") for label in self.labels]
+
+    @property
+    def labels(self):
+        return self._data.get("labels", [])
+
+    @property
+    def links(self):
+        return self._data.get("_links", {})
+
+
+class Agents(ListLikeListingClass):
+    SINGULAR_CLASS = Agent
+    LISTING_CLASS = AgentListing
+    ROUTE = "/agents"
+    OBJECT_NAME = "Agent"
+    KEY = "agents"
+
+    def get(self, agent_id: int):
+        url = f"{self.ROUTE}/{agent_id}"
+        return self.SINGULAR_CLASS(self._api, self._api._request(url), url)

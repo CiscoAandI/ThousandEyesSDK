@@ -1,7 +1,7 @@
 import warnings
 from werkzeug.exceptions import NotFound
 
-from .agents import Agent
+from .details import Detail
 from .list_like import ListLikeListingClass
 from ..core import BaseEntity
 from .tests import Test
@@ -133,9 +133,9 @@ class Alert(AlertListing):
         return self._monitors
 
     @property
-    def details(self) -> list[Agent]:
+    def details(self) -> list[Detail]:
         details = self.data.get("details", [])
-        return [Agent(self._api, detail, f"/agents/{detail.get('id')}") for detail in details]
+        return [Detail(self._api, detail, "") for detail in details]
 
     def __repr__(self):
         return f"<Alert id={self.id}, type={self.type}>"
