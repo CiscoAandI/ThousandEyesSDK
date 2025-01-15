@@ -174,6 +174,7 @@ class Tests(ListLikeListingClass):
         "Downloads test details for the given test_id and test_type"
         test_id = str(test_id)
         query = "expand=agent"
+        test_type = TestType(test_type) if isinstance(test_type, str) else test_type
         url = f"{self.ROUTE}/{test_type.value}/{test_id}"
         url = f"{url}?{query}"
         return self.SINGULAR_CLASS(

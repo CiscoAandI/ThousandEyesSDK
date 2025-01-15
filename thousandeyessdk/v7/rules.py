@@ -6,10 +6,6 @@ class RuleListing(BaseEntity):
 
     @property
     def expression(self) -> str:
-        return self.rule_expression
-
-    @property
-    def rule_expression(self) -> str:
         return self._data.get("expression")
 
 

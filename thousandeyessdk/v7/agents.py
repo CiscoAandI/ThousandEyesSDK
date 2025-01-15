@@ -3,6 +3,9 @@ from thousandeyessdk.core import BaseEntity
 
 class Agent(BaseEntity):
 
+    def __repr__(self):
+        return f"<Agent {self.id} {self.name}>"
+
     @property
     def id(self):
         return self.data.get("id")
