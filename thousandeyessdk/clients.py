@@ -74,19 +74,17 @@ class API:
 
     @staticmethod
     def _handle_response(response: requests.Response, url: str):
+        response.raise_for_status()
         try:
             data = response.json()
-            error_message = data.get("errorMessage") or data.get("error")
-            is_response_ok = response.ok
-            if not error_message and is_response_ok:
+            if response.ok:
                 return data
 
             exception_class = default_exceptions[response.status_code]
-            raise exception_class(error_message)
+            raise exception_class()
         except (JSONDecodeError, requests.JSONDecodeError):
             LOG.error(f'Cannot decode response from "{url}": {response.text} ')
 
-        response.raise_for_status()
 
     def _request(self, url: str, method: str = "GET", json=None, raw=False, exact_url=False) -> dict:
         # window = self._generate_window(window_integer=window_integer, window_unit=window_unit)
