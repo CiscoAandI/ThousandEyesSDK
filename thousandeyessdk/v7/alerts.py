@@ -109,6 +109,10 @@ class Alert(AlertListing):
         self._monitors = None
 
     @property
+    def active(self) -> bool:
+        return self.state == "trigger"
+
+    @property
     def locations(self):
         return self._data.get("locations", [])
 
