@@ -53,6 +53,14 @@ class Agent(AgentListing):
     def links(self):
         return self._data.get("_links", {})
 
+    @property
+    def network(self):
+        return self._data.get("network")
+
+    @property
+    def prefix(self):
+        return self._data.get("prefix")
+
 
 class Agents(ListLikeListingClass):
     SINGULAR_CLASS = Agent
