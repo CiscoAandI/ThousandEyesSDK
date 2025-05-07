@@ -21,6 +21,10 @@ class Detail(BaseEntity):
     @property
     def state(self):
         return self.data.get("state")
+    
+    @property
+    def active(self):
+        return self.state == "trigger"
 
     @property
     def metrics_at_start(self):
