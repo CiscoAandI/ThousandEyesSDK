@@ -1,14 +1,22 @@
 import warnings
+from werkzeug.exceptions import NotFound
 
-from .agents import Agent
+from .details import Detail
 from .list_like import ListLikeListingClass
 from ..core import BaseEntity
-
+from .tests import Test
+from .rules import Rule
 
 class AlertListing(BaseEntity):
+
+    def __init__(self, api, data, path):
+        super().__init__(api, data, path)
+        self._rule = None
+        self._test = None
+
     @property
     def id(self):
-        return self._data.get("alertId")
+        return self._data.get("alertId") or self._data.get("id")
 
     @property
     def type(self):
@@ -33,7 +41,7 @@ class AlertListing(BaseEntity):
 
     @property
     def permalink(self):
-        return self._data.get("permalink")
+        return self._data.get("permalink") or self.links.get("appLink", {}).get("href")
 
     @property
     def severity(self):
@@ -70,16 +78,68 @@ class AlertListing(BaseEntity):
     def __repr__(self):
         return f"<AlertListing id={self.id}, type={self.type}>"
 
+    @property
+    def rule(self) -> Rule:
+        if self._rule is not None:
+            return self._rule
+
+        url = self.links.get("rule", {}).get("href").split("/v7")[1]
+        try:
+            self._rule = Rule(self._api, self._api._request(url), url)
+        except NotFound:
+            self._rule = None
+        return self._rule
+
+    @property
+    def test(self) -> Test:
+        if self._test is not None:
+            return self._test
+        url = self.links.get("test", {}).get("href").split("/v7")[1]
+        try:
+            self._test = Test(self._api, self._api._request(url), url)
+        except NotFound:
+            self._test = None
+        return self._test
 
 class Alert(AlertListing):
+
+    def __init__(self, api, data, path):
+        super().__init__(api, data, path)
+        self._agents = None
+        self._monitors = None
+
+    @property
+    def active(self) -> bool:
+        return self.state == "trigger"
+
     @property
     def locations(self):
         return self._data.get("locations", [])
 
     @property
-    def details(self) -> list[Agent]:
+    def agents(self):
+        if self._agents is not None:
+            return self._agents
+        try:
+            self._agents = self._api._request(f"/alerts/{self.type}/{self.id}").get("agents", [])
+        except NotFound:
+            self._agents = []
+        return self._agents
+
+    @property
+    def monitors(self):
+        if self._monitors is not None:
+            return self._monitors
+        try:
+            self._monitors = self._api._request(f"/alerts/{self.type}/{self.id}").get("monitors", [])
+        except NotFound:
+            self._monitors = []
+        return self._monitors
+
+    @property
+    def details(self) -> list[Detail]:
         details = self.data.get("details", [])
-        return [Agent(self._api, detail, f"/agents/{detail.get('id')}") for detail in details]
+        return [Detail(self._api, detail, "") for detail in details]
 
     def __repr__(self):
         return f"<Alert id={self.id}, type={self.type}>"
